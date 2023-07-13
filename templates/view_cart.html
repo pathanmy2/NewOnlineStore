@@ -1,0 +1,87 @@
+{% extends "common.html"%}
+{% block content%}
+
+<head>
+  <!-- Other head elements -->
+
+  <!-- Bootstrap CSS via CDN -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+  
+</head>
+
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    
+  <div class="collapse navbar-collapse" id="navbarSupportedContent" style="text-align: right;"> 
+      <ul class="navbar-nav mr-auto">
+          
+          <li class="btn btn-outline-success my-2 my-sm-0" style="margin-left:20px">
+              <a class="nav-link" href="{% url 'logout' %}">Logout </span></a>
+          </li>
+      </ul>
+       
+  </div>
+</nav>
+
+{% comment %} {% if order %} {% endcomment %}
+  
+{% comment %} <h2>Cart:</h2> {% endcomment %}
+{% if orderscount == 0%}
+<h3 style="color:red;text-align:center">Your cart is empty</h3>
+{% else %}
+  {% if order %}
+    {% comment %} {% for product in order.products.all %}
+      <div>
+        <h3>{{ product.name }}</h3>
+        <p>{{ product.description }}</p>
+        <p>Price: ${{ product.price }}</p>
+        <p>Stock: {{ product.stock }}</p>
+      </div> {% endcomment %}
+
+        
+    <div class="row">
+      {% for product in order.products.all %}
+      <div class="col-md-3">
+        <div class="product-item">
+          <img src="{{ product.image.url }}" alt="{{ product.name }}" class="img-fluid">
+          <h2>{{ product.name }}</h2>
+          <p>{{ product.description }}</p>
+          <p>Price: ${{ product.price }}</p>
+          <p>Stock: {{ product.stock }}</p>
+          <p>ID: {{ product.id }}</p>
+          
+          <a class="btn btn-outline-danger" href="{% url "delete" product.id %}">Remove from cart</a>
+          <br>
+          <br>
+          {% comment %} <button> Remove from cart </button> {% endcomment %}
+
+          <button> BuyNow</button>
+        </div><br><br><br>
+      </div>
+      {% cycle "" "" "" "</div><div class='row'>" %}
+
+      {% endfor %}
+    </div>
+  {% comment %} {% else %}
+    <h2>Your cart is empty.</h2> {% endcomment %}
+  {% endif %}
+{% endif %}
+{% comment %} 
+<div class="row">
+      
+  <div class="col-md-3">
+    <div class="product-item">
+      <img src="{{ product.image.url }}" alt="{{ product.name }}" class="img-fluid">
+      <h2>{{ product.name }}</h2>
+      <p>{{ product.description }}</p>
+      <p>Price: ${{ product.price }}</p>
+      <p>Stock: {{ product.stock }}</p>
+      <button>Delete</button>
+      <button> BuyNow</button>
+    </div><br><br><br>
+  </div>
+  {% cycle "" "" "" "</div><div class='row'>" %} {% endcomment %}
+
+{% comment %} </div> {% endcomment %}
+{% endblock %}

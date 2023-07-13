@@ -1,0 +1,152 @@
+{% extends "common.html"%}
+{% block content%}
+
+<head>
+  <!-- Other head elements -->
+
+  <!-- Bootstrap CSS via CDN -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+  <!-- Additional custom stylesheets or scripts -->
+</head>
+
+{% if login %}
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    
+  <div class="collapse navbar-collapse" id="navbarSupportedContent" style="text-align: right;"> 
+      <ul class="navbar-nav mr-auto">
+          
+          <li class="btn btn-outline-success my-2 my-sm-0" style="margin-left:20px">
+              <a class="nav-link" href="{% url 'logout' %}">Logout </span></a>
+          </li>
+      </ul>
+       
+  </div>
+</nav>
+{% else %}
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    
+  <div class="collapse navbar-collapse" id="navbarSupportedContent" style="text-align: right;"> 
+      <ul class="navbar-nav mr-auto">
+          <li class="btn btn-outline-success my-2 my-sm-0">
+              <a class="nav-link" href="{% url 'register' %}">Register </span></a>
+          </li>  
+          <li class="btn btn-outline-success my-2 my-sm-0" style="margin-left:20px">
+              <a class="nav-link" href="{% url 'login' %}">Login </span></a>
+          </li>
+      </ul>
+       
+  </div>
+</nav>
+{%endif%}
+{% comment %} <h2>Categories:</h2>
+<a href="{% url 'view_cart'%}"><h3 style="text-align:right;">View Cart</h3></a>
+
+<ul>
+  {% for category in categories %}
+    <li><a href="{% url 'view_category_products' category.id %}">{{ category.name }}</a></li>
+  {% endfor %}
+</ul> {% endcomment %}
+
+<br>
+<br>
+
+{% comment %} ============================================================================ {% endcomment %}
+<div class="row">
+    {% for product in products %}
+      <div class="col-md-3">
+        <div class="product-item">
+          <img src="{{ product.image.url }}" alt="{{ product.name }}" height=250px width=250px>
+          <br><br><br>
+          <h5>{{ product.name }}</h5>
+          <p>{{ product.description }}</p>
+          <p>Price: ${{ product.price }}</p>
+          <p>Stock: {{ product.stock }}</p>
+          <a class="btn btn-outline-info" href="{% url 'add_to_cart' product.id %}">Add to Cart</a><br><br>
+          <button> BuyNow</button>
+        </div><br><br><br>
+      </div>
+      {% cycle "" "" "" "</div><div class='row'>" %}
+    {% endfor %} 
+</div> 
+  {% comment %} =============================================================================================== {% endcomment %}
+
+
+
+
+ {% comment %} <style>
+    .product-item {
+      background-color: #f5f5f5;
+      border-radius: 5px;
+      padding: 20px;
+      margin-bottom: 20px;
+      height: 400px; /* Adjust the height as needed */
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+  
+    .product-image {
+      max-width: 100%;
+      height: auto;
+      border-radius: 5px;
+      margin-bottom: 10px;
+    }
+  
+    .product-name {
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+  
+    .product-description {
+      margin-bottom: 5px;
+    }
+  
+    .product-price {
+      font-weight: bold;
+    }
+  
+    .product-stock {
+      color: #888;
+    }
+  
+    .button-group {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .button-group button,
+    .button-group a {
+      width: 100%;
+    }
+  </style>
+  
+  <div class="container">
+    <div class="row">
+      {% for product in products %}
+        <div class="col-md-3">
+          <div class="product-item">
+            <div class="card h-100">
+              <img src="{{ product.image.url }}" alt="{{ product.name }}" class="img-fluid">
+            </div> 
+            <div class="product-details">
+              <h2 class="product-name">{{ product.name }}</h2>
+              <p class="product-description">{{ product.description }}</p>
+              <p class="product-price">Price: ${{ product.price }}</p>
+              <p class="product-stock">Stock: {{ product.stock }}</p>
+            </div>
+            <div class="button-group">
+              <a class="btn btn-outline-info" href="{% url 'add_to_cart' product.id %}">Add to Cart</a>
+              <button class="btn btn-primary">Buy Now</button>
+            </div>
+          </div>
+        </div>
+        {% cycle "" "" "" "</div><div class='row'>" %}
+      {% endfor %}
+    </div>
+  </div>  {% endcomment %}
+  
+
+  {%endblock%}

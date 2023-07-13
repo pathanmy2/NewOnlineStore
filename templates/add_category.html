@@ -1,0 +1,28 @@
+
+{% extends "sellercommon.html"%}
+{% block sellercontent%}
+<center><table>
+<form method="POST" enctype="multipart/form-data">
+  
+    {% csrf_token %}
+  
+    <tr>
+      <th><label for="name">Name    :</label></th><td><input type="text" name="name" required><br></td>
+  </tr>
+  
+ 
+  
+  <tr>
+    <th>
+      <div style="margin-left: 159px;margin-top: 20px;">
+        <button type="submit">Add Category</button>
+      </div>
+    </th>
+    
+  </tr>
+ 
+  </form>
+
+</table>
+</center>
+{%endblock%}

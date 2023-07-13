@@ -1,0 +1,98 @@
+
+{% extends "sellercommon.html"%}
+{% block sellercontent%}
+<center><table>
+  {% if products %}
+  
+    <form action="{% url 'update_product' products.id %}"  method="POST" enctype="multipart/form-data">
+      <h3>{{products}}</h3>
+        {% csrf_token %}
+          <tr>
+            <th><label for="category">Category:</label></th>
+            <td><select id="category" name="category">
+              {% for category in categories %}
+                <option value="{{ category.id }}" {% if category.id == products.category.id %}selected{% endif %}>
+                  {{ category.name }}
+                </option>
+              {% endfor %}
+            </select></td>
+          </tr>
+            <tr>
+              <th><label for="name">Name:</label></th><td><input type="text" name="name" value={{ products.name }}><br></td>
+          </tr>
+          <tr>
+            <th><label for="description">Description:</label></th>
+            <td><textarea name="description" required>{{ products.description }}</textarea><br></td>
+          </tr>
+            <tr>
+              <th><label for="price">Price:</label></th><td><input type="number" name="price" step="0.01" value={{ products.price }}></td>
+          </tr>
+          <tr>
+            <th><label for="stock">Stock:</label></th>
+            <td><input type="number" name="stock" value={{ products.stock }}></td>
+          </th>
+          <tr>
+            <th><label for="image">Image:</label></th>
+            {%if products.image%}
+            <td><img src="{{ products.image.url }}" alt="{{ products.name }}" width="200">
+              <br>
+              <input type="file" id="image" name="image">
+              <br><br></td>
+            
+            
+            {%endif%}
+          <tr>
+            <th>
+              <div style="margin-left: 159px;margin-top: 20px;">
+                <button type="submit">Update Products</button>
+              </div>
+            </th>
+            
+          </tr>
+        {% comment %} </form> {% endcomment %}
+  {% else %}
+    <form method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+        <tr>
+          <th><label for="category">Category:</label></th>
+          <td><select name="category" id="category">
+            {% for category in categories %}
+              <option value="{{ category.id }}">{{ category.name }}</option>
+            {% endfor %}
+          </select></td>
+        </tr>
+          <tr>
+            <th><label for="name">Name:</label></th><td><input type="text" name="name" required><br></td>
+        </tr>
+        <tr>
+          <th><label for="description">Description:</label></th>
+          <td><textarea name="description" required></textarea><br></td>
+        </tr>
+          <tr>
+            <th><label for="price">Price:</label></th><td><input type="number" name="price" step="0.01" required></td>
+        </tr>
+        <tr>
+          <th><label for="stock">Stock:</label></th>
+          <td><input type="number" name="stock" required></td>
+        </th>
+        <tr>
+          <th><label for="image">Image:</label></th>
+          <td><input type="file" name="image" required><br></td>
+        </tr><br>
+      
+        
+        <tr>
+          <th>
+            <div style="margin-left: 159px;margin-top: 20px;">
+              <button type="submit">Add Product</button>
+            </div>
+          </th>
+          
+        </tr>
+      </form>
+    {%endif%}
+
+
+</table>
+</center>
+{%endblock%}

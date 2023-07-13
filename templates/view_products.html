@@ -1,0 +1,49 @@
+{% extends "sellercommon.html" %}
+{% block sellercontent %} 
+
+
+
+<head>
+  <!-- Other head elements -->
+
+  <!-- Bootstrap CSS via CDN -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+  
+</head>
+
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    
+  <div class="collapse navbar-collapse" id="navbarSupportedContent" style="text-align: right;"> 
+      <ul class="navbar-nav mr-auto">
+          
+          <li class="btn btn-outline-success my-2 my-sm-0" style="margin-left:20px">
+              <a class="nav-link" href="{% url 'logout' %}">Logout </span></a>
+          </li>
+      </ul>
+       
+  </div>
+</nav>
+<br><br>
+
+<div class="row">
+  {% for product in products %}
+    <div class="col-md-3">
+      <div class="product-item">
+        <img src="{{ product.image.url }}" alt="{{ product.name }}" height=250px width=250px>
+        <br><br><br>
+        <h5>{{ product.name }}</h5>
+        <p>{{ product.description }}</p>
+        <p>Price: ${{ product.price }}</p>
+        <p>Stock: {{ product.stock }}</p>
+        <a class="btn btn-outline-info" href="{% url 'update_product' product.id %}">Update</a><br><br>
+        <a class="btn btn-outline-danger" href="{% url 'delete_product' product.id %}">Delete</a><br><br>
+        
+      </div><br><br><br>
+    </div>
+    {% cycle "" "" "" "</div><div class='row'>" %}
+  {% endfor %} 
+</div>
+
+{% endblock %}

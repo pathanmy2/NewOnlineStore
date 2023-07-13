@@ -1,0 +1,34 @@
+{% extends "admincommon.html" %}
+{% block admincontent %} 
+
+{% comment %} {% for buyer in buyers %}
+  <div>
+    <h3>{{ buyer.user.username }}</h3>
+    
+  </div>
+{% endfor %} {% endcomment %}
+<style>
+  .buyer-card {
+    background-color: #f2f2f2;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+
+  .buyer-name {
+    color: #333;
+    font-size: 18px;
+    margin-bottom: 5px;
+  }
+</style>
+
+<h2>Buyers:</h2>
+{% for buyer in buyers %}
+  <div class="buyer-card">
+    <h3 class="buyer-name">{{ buyer.user.username }}</h3>
+    <!-- Add more details or content related to the buyer if needed -->
+  </div>
+{% endfor %}
+
+{% endblock %}

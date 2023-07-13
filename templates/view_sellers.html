@@ -1,0 +1,33 @@
+{% extends "admincommon.html" %}
+{% block admincontent %} 
+
+{% comment %} {% for seller in sellers %}
+  <div>
+    <h3>{{ seller.user.username }}</h3>
+    <!-- Add additional seller details as needed -->
+  </div>
+{% endfor %} {% endcomment %}
+<style>
+  .seller-card {
+    background-color: #f5f5f5;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+
+  .seller-name {
+    color: #333;
+    font-size: 20px;
+    margin-bottom: 5px;
+  }
+</style>
+
+<h2>Sellers:</h2>
+{% for seller in sellers %}
+  <div class="seller-card">
+    <h3 class="seller-name">{{ seller.user.username }}</h3>
+    <!-- Add more details or content related to the seller if needed -->
+  </div>
+{% endfor %}
+
+{% endblock %}
